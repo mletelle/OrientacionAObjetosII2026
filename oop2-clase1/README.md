@@ -1,0 +1,29 @@
+# Objetos 2 - Clase 1
+
+- Maven
+    - Estructura de Proyecto Maven
+    - dependencias (https://www.maven.org/)
+        - External libraries
+    - Para fijar una version dentro del proyecto:
+        - mvn -N wrapper:wrapper -Dmaven=3.8.7
+    - Luego pueden compilar, correr tests y demas así:
+        - mvn clean compile
+        - mvn test
+- Primera Regla de Código Elegante:
+    - IDE: Format on save
+- Primera Regla de Buenos Diseños:
+    - Testeables:
+        - Sin asserts no hay test
+        - Estructura de los Tests
+            - setup, ejercitación, verificación
+- Cobertura
+- Segunda Regla de Código Elegante:
+    - IDE: Quick Fixes
+- Refactoring
+    - To for
+        - Variables inncesarias (aplicar inline)
+    - nombre de métodos (mejor legibilidad, aplicar rename)
+    - Usando Quick Fixes to Stream anyMatch
+        - Ver otros quick fixes sugeridos luego (volver al for).
+    - Asistentes IA
+        - GitHub Copilot
