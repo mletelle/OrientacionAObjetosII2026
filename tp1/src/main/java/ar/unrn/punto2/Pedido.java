@@ -8,9 +8,14 @@ public class Pedido {
     private Tarjeta tarjeta;
     private Propina propina;
 
+    public Pedido(Tarjeta tarjeta, Propina propina) {
+        this.productos = new ArrayList<>();
+        this.tarjeta = tarjeta;
+        this.propina = propina;
+    }
+
     public Pedido() {
         this.productos = new ArrayList<>();
-        // como son enums tarjeta y propina los dejo en otro metodo, para no inicializarlos null
     }
 
     public void datosPago(Tarjeta tarjeta, Propina propina) {
@@ -24,7 +29,7 @@ public class Pedido {
 
     public double calcularPrecioTotal() {
         if (this.tarjeta == null || this.propina == null) {
-            throw new IllegalStateException("Debe ingresar los datos");
+            throw new IllegalArgumentException("Debe ingresar los datos");
         }
         double subtotal = this.productos.stream().mapToDouble(producto -> producto.calcularPrecio(this.tarjeta)).sum();
         return this.propina.calcularPropina(subtotal);
