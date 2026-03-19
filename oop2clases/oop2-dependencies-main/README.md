@@ -1,0 +1,46 @@
+# Técnicas de Desacoplamiento en Objetos
+
+- Inyección de Dependencias y Depender de Abstracciones
+- Separation of concerns: Desacoplar lógica de negocios de detalles técnicos
+- A que denominamos detalle técnico:
+    - Acceso al disco (leer o escribir archivos)
+    - Acceso al teclado
+    - Acceso a una Base de Datos (JDBC)
+    - Consumo de servicios Web
+    - Enviar de emails, imprimir, etc.
+- Testing del modelo desacoplado de detalles técnicos
+- Ejemplo Moneda
+    - URL hardcodeada
+    - Extraemos cuestiones técnicas a otra clase.
+    - Apliquemos Depender de Abstracciones e Inyección de Dependencias.
+- Test Doubles (Libro XUnit Test Patters)
+    - Objeto que se utiliza en lugar de un objeto real para propósitos de prueba.
+    - **Importante**: "We need to be careful that we don’t replace the parts of the SUT that we are trying to verify
+      because that practice can result in tests that test the wrong software!" (XUnit Test Patters).
+    - Stub: Devuelve datos predefinidos para las pruebas.
+    - Mock: Verifica que ciertos métodos fueron llamados con ciertos parámetros.
+- Mock Server: https://www.mock-server.com/mock_server/running_mock_server.html#client_api
+- ¿Por qué no uso siempre Mock Server para todos los casos de Test?
+    - Principalmente porque son mas lentos
+- Ejemplo Pagos Online
+    - URL hardcodeada
+    - Tipo de pago hardcodeado
+    - ¿Cómo lo testeo sin cobrar de verdad?
+    - Aplicamos inyección:
+        - Quick Fix: Movemos inicialización al constructor.
+        - Refactor: Introduce parameter (me cambia solito el setup del test)
+    - Aplicamos Depender de Abtracciones:
+        - Extract Interface sobre Paypal
+    - Mostramos como puedo hacer un *Fake* de PagoOnline
+- Ejemplo Export
+    - Path al archivo hardcodeado
+    - Dependencia en exportar a Archivo hardcodeada
+    - ¿Si quiero exportar a otro destino que no sea file?
+        - ¿ exportFile(), exportDb(), exportWeb(), etc ?
+        - Apliquemos Depender de Abstracciones e Inyección de Dependencias.
+    - ¿Cómo testeo? Acoplado a todo esto. No es bueno.
+        - No tengo buen control
+        - Acceso a disco es lento
+
+- Sandy Metz about Minimalist Testing
+    - https://www.youtube.com/watch?v=URSWYvyc42M

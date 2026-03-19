@@ -30,3 +30,5 @@ target/
 # IDE
 .idea/
 *.iml
+clases/*.txt
+*.txt
