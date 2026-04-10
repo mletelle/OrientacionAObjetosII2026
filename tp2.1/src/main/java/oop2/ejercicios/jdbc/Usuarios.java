@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.function.Consumer;
 
 public class Usuarios {
 
@@ -14,11 +13,17 @@ public class Usuarios {
         this.jdbcUrl = jdbcUrl;
     }
 
-    private void ejecutarEnTransaccion(Consumer<Connection> accion) {
+    // propia que permite throws SQLException.
+    @FunctionalInterface
+    private interface SqlAction {
+        void execute(Connection connection) throws SQLException;
+    }
+
+    private void ejecutarEnTransaccion(SqlAction accion) {
         try (Connection connection = DriverManager.getConnection(this.jdbcUrl)) {
             connection.setAutoCommit(false);
             try {
-                accion.accept(connection);
+                accion.execute(connection);
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
@@ -36,8 +41,6 @@ public class Usuarios {
                 statement.setString(1, nombre);
                 statement.setString(2, email);
                 statement.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException("Error al insertar usuario", e);
             }
         });
     }
@@ -49,8 +52,6 @@ public class Usuarios {
                 statement.setString(1, nuevoEmail);
                 statement.setInt(2, id);
                 statement.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException("Error al actualizar usuario", e);
             }
         });
     }
