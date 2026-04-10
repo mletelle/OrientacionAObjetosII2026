@@ -1,12 +1,20 @@
 package unrn.punto1;
 
 public class Participante {
+    private final int id;
     private final String nombre;
     private int puntos;
+    private String mail;
 
-    public Participante(String nombre) {
+    public Participante(int id, String nombre, String mail) {
+        this.id = id;
         this.nombre = nombre;
         this.puntos = 0;
+        this.mail = mail;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void agregarPuntos(int puntos) {
@@ -20,8 +28,12 @@ public class Participante {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
         Participante that = (Participante) obj;
-        return puntos == that.puntos && nombre.equals(that.nombre);
+        return id == that.id && nombre.equals(that.nombre);
     }
+
+    public String getMail() { //para el registradormail
+        return mail;
+    }
+
 }

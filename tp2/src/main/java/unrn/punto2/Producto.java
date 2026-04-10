@@ -1,7 +1,17 @@
 package unrn.punto2;
 
-public interface Producto {
-    double precioBebida();
+public abstract class Producto {
+    protected final double precio;
 
-    double precioPlato();
+    public Producto(double precio) {
+        this.precio = precio;
+    }
+
+    public double sumarPrecioBebida(double total) {
+        return total;
+    }
+
+    public double sumarPrecioPlato(double total) {
+        return total;
+    }
 }

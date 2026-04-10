@@ -1,17 +1,13 @@
 package unrn.punto2;
 
-public class Plato implements Producto {
-    private final double precio;
+public class Plato extends Producto {
 
     public Plato(double precio) {
-        this.precio = precio;
+        super(precio);
     }
 
-    public double precioBebida() {
-        return 0;
-    }
-
-    public double precioPlato() {
-        return this.precio;
+    @Override
+    public double sumarPrecioPlato(double total) {
+        return total + this.precio;
     }
 }

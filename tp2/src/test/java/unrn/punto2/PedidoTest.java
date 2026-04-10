@@ -9,7 +9,7 @@ class PedidoTest {
 
     @Test
     void visaDescuentaTresPorcientoEnBebidasConPropinaCinco() {
-        Pedido pedido = new Pedido(Tarjeta.VISA, Propina.CINCO);
+        Pedido pedido = new Pedido(Tarjeta.VISA, Propina.CINCO, new RegistradorFake());
         pedido.agregarProducto(new Bebida(100));
         pedido.agregarProducto(new Plato(100));
         double subtotal = (100 * 0.97) + 100;
@@ -19,7 +19,7 @@ class PedidoTest {
 
     @Test
     void mastercardDescuentaDosPorcientoEnBebidasConPropinaDos() {
-        Pedido pedido = new Pedido(Tarjeta.MASTERCARD, Propina.DOS);
+        Pedido pedido = new Pedido(Tarjeta.MASTERCARD, Propina.DOS, new RegistradorFake());
         pedido.agregarProducto(new Bebida(100));
         pedido.agregarProducto(new Plato(100));
         double subtotal = (100 * 0.98) + 100;
@@ -29,7 +29,7 @@ class PedidoTest {
 
     @Test
     void comarcaDescuentaDosPorcientoEnBebidasYPlatosConPropinaTres() {
-        Pedido pedido = new Pedido(Tarjeta.COMARCA, Propina.TRES);
+        Pedido pedido = new Pedido(Tarjeta.COMARCA, Propina.TRES, new RegistradorFake());
         pedido.agregarProducto(new Bebida(100));
         pedido.agregarProducto(new Plato(100));
         double subtotal = (100 * 0.98) + (100 * 0.98);
@@ -39,7 +39,7 @@ class PedidoTest {
 
     @Test
     void otraTarjetaNoAplicaDescuentoConPropinaTres() {
-        Pedido pedido = new Pedido(Tarjeta.OTRA, Propina.TRES);
+        Pedido pedido = new Pedido(Tarjeta.OTRA, Propina.TRES, new RegistradorFake());
         pedido.agregarProducto(new Bebida(100));
         pedido.agregarProducto(new Plato(100));
         double subtotal = 100 + 100;
@@ -49,11 +49,11 @@ class PedidoTest {
 
     @Test
     void crearPedidoSinTarjetaLanzaExcepcion() {
-        assertThrows(IllegalArgumentException.class, () -> new Pedido(null, Propina.CINCO));
+        assertThrows(IllegalArgumentException.class, () -> new Pedido(null, Propina.CINCO, new RegistradorFake()));
     }
 
     @Test
     void crearPedidoSinPropinaLanzaExcepcion() {
-        assertThrows(IllegalArgumentException.class, () -> new Pedido(Tarjeta.VISA, null));
+        assertThrows(IllegalArgumentException.class, () -> new Pedido(Tarjeta.VISA, null, new RegistradorFake()));
     }
 }
