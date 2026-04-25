@@ -2,7 +2,7 @@ package oop2.tp3.ejercicio2;
 
 
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

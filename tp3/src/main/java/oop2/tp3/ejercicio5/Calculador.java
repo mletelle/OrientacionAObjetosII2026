@@ -1,8 +1,10 @@
 package oop2.tp3.ejercicio5;
 
 import java.util.List;
+import java.util.Map;
 
 public class Calculador {
+    private Map<String, CalcularEvento> calculoPorTipo = Map.of("Drama", new EventoDrama(), "Comedia", new EventoComedia());
 
     public String reporte(Factura factura, List<Evento> eventos) {
         float totalAmount = 0;
@@ -10,36 +12,10 @@ public class Calculador {
         var result = "Facturación para " + factura.nombreCliente() + System.lineSeparator();
         var actuaciones = factura.actuaciones();
         for (var actuacion : actuaciones) {
-            float monto = 0;
-            var tipo = eventos.stream()
-                    .filter(e -> e.nombreEvento().equals(actuacion.nombreEvento()))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Evento no encontrado"))
-                    .tipo();
-
-            switch (tipo) {
-                case "Drama":
-                    monto = 40000;
-                    if (actuacion.numberoEspectadores() > 30) {
-                        monto += 1000 * (actuacion.numberoEspectadores() - 30);
-                    }
-                    break;
-                case "Comedia":
-                    monto = 30000;
-                    if (actuacion.numberoEspectadores() > 20) {
-                        monto += 10000 + 500 * (actuacion.numberoEspectadores() - 20);
-                    }
-                    monto += 300 * actuacion.numberoEspectadores();
-                    break;
-                default:
-                    throw new RuntimeException("Tipo de evento no conocido");
-            }
-            // creditos a ganar
-            creditos += Math.max(actuacion.numberoEspectadores() - 30, 0);
-            // creditos extras para comedia
-            if ("Comedia".equals(tipo)) {
-                creditos += Math.floor(actuacion.numberoEspectadores() / 5);
-            }
+            var tipo = eventos.stream().filter(e -> e.nombreEvento().equals(actuacion.nombreEvento())).findFirst().orElseThrow(() -> new RuntimeException("Evento no encontrado")).tipo();
+            CalcularEvento calculo = calculoPorTipo.get(tipo);
+            float monto = calculo.calcularMonto(actuacion.numberoEspectadores());
+            creditos += calculo.calcularCreditos(actuacion.numberoEspectadores());
             result += actuacion.nombreEvento() + ": " + monto + ". Asientos: " + actuacion.numberoEspectadores() + System.lineSeparator();//` ${play.name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
             totalAmount += monto;
         }

@@ -1,6 +1,7 @@
 package oop2.tp3.ejercicio5;
 
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -14,7 +15,7 @@ public class Main {
     private static List<Evento> cargarEventos() {
         return List.of(new Evento("Escuela de Rock", "Comedia"),
                 new Evento("Hamlet", "Drama"),
-                new Evento("El Avion", "Dram"),
+                new Evento("El Avion", "Drama"),
                 new Evento("Cantando en la playa", "Comedia"),
                 new Evento("El Perfume", "Drama")
         );
