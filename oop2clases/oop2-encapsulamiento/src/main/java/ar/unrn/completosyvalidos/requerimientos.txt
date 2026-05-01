@@ -1,6 +1,0 @@
-Modelar una tajeta de crédito (el plástico)
-
-Tarjeta de Credito:
-- El numero de tarjeta debe ser un numero de 16 digitos
-- El codigo de seguridad debe ser un numero de 3 digitos
-- El nombre del titular debe ser un string no vacio
