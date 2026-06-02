@@ -1,9 +1,10 @@
-package ar.unrn;
+package unrn.concurso;
 
-import ar.unrn.modelo.Registrar;
-import ar.unrn.modelo.SistemaParticipantes;
-import ar.unrn.persistencia.JDBCRegistrarParticipantes;
-import ar.unrn.vista.AgregarParticipante;
+import unrn.concurso.modelo.Registrar;
+import unrn.concurso.modelo.SistemaParticipantes;
+import unrn.concurso.persistencia.JDBCRegistrarParticipantes;
+import unrn.concurso.servicio.ObservadorEmailInscripcion;
+import unrn.concurso.vista.AgregarParticipante;
 
 import java.awt.*;
 
@@ -13,6 +14,13 @@ public class Main {
             try {
                 Registrar registrar = new JDBCRegistrarParticipantes();
                 SistemaParticipantes sistema = new SistemaParticipantes(registrar);
+                sistema.agregarObservador(new ObservadorEmailInscripcion(
+                        "sandbox.smtp.mailtrap.io",
+                        2525,
+                        "2372cd9060f4e7",
+                        "4dea3ceb1dc317",
+                        "concurso@tp2.com"
+                ));
                 AgregarParticipante agregar = new AgregarParticipante(sistema);
                 agregar.setVisible(true);
 

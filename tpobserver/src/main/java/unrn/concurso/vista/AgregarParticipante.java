@@ -1,6 +1,6 @@
-package ar.unrn.vista;
+package unrn.concurso.vista;
 
-import ar.unrn.modelo.SistemaParticipantes;
+import unrn.concurso.modelo.SistemaParticipantes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +14,7 @@ public class AgregarParticipante extends JFrame {
     private JTextField nombre;
     private JTextField telefono;
     private JTextField region;
+    private JTextField email;
 
     public AgregarParticipante(SistemaParticipantes sistema) {
         this.sistema = sistema;
@@ -27,9 +28,11 @@ public class AgregarParticipante extends JFrame {
         this.nombre = new JTextField(10);
         this.telefono = new JTextField(10);
         this.region = new JTextField(10);
+        this.email = new JTextField(10);
         this.nombre.setText("");
         this.telefono.setText("");
         this.region.setText("China");
+        this.email.setText("");
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new FlowLayout());
@@ -39,6 +42,8 @@ public class AgregarParticipante extends JFrame {
         contentPane.add(telefono);
         contentPane.add(new JLabel("Region: "));
         contentPane.add(region);
+        contentPane.add(new JLabel("Email: "));
+        contentPane.add(email);
         JButton botonCargar = new JButton("Cargar");
         botonCargar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -58,7 +63,7 @@ public class AgregarParticipante extends JFrame {
 
     private void onBotonCargar() throws Exception {
         try {
-            sistema.agregarParticipante(nombre.getText(), telefono.getText(), region.getText());
+            sistema.agregarParticipante(nombre.getText(), telefono.getText(), region.getText(), email.getText());
             JOptionPane.showMessageDialog(this, "Participante guardado");
             dispose();
         } catch (IllegalArgumentException e) {
